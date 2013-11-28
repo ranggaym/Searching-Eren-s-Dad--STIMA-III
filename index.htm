@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+</head>
+
+<body>
+<h3> My Sentiment Analytics </h3>
+<form action = "analyze.php" method = "GET"> <!-- atau analyze.jsp -->
+	<i>Keyword</i> pencarian <i>tweets</i> : <br> <input type="text" name="tweetkeyword" onchange="validator();"><br>
+	<i>Keyword</i> sentimen positif : <br> <input type="text" name="positivesentiments" onchange="validator();"><br>
+	<i>Keyword</i> sentimen negatif : <br> <input type="text" name="negativesentiments" onchange="validator();"><br>
+
+	<input id="submit_button" type="submit" value="Analisis"> </br>
+	
+	<input type="radio" name="algotype" value="bm" checked> Boyer-Moore </br>
+	<input type="radio" name="algotype" value="kmp"> KMP </br>
+	
+</form>
+</body>
+</html>
