@@ -1,47 +1,18 @@
-/***************************************************************
- *  Compilation:  javac BoyerMoore.java
- *  Execution:    java BoyerMoore pattern text
- *
- *  Reads in two strings, the pattern and the input text, and
- *  searches for the pattern in the input text using the
- *  bad-character rule part of the Boyer-Moore algorithm.
- *  (does not implement the strong good suffix rule)
- *
- *  % java BoyerMoore abracadabra abacadabrabracabracadabrabrabracad
- *  text:    abacadabrabracabracadabrabrabracad 
- *  pattern:               abracadabra
- *
- *  % java BoyerMoore rab abacadabrabracabracadabrabrabracad
- *  text:    abacadabrabracabracadabrabrabracad 
- *  pattern:         rab
- *
- *  % java BoyerMoore bcara abacadabrabracabracadabrabrabracad
- *  text:    abacadabrabracabracadabrabrabracad 
- *  pattern:                                   bcara
- *
- *  % java BoyerMoore rabrabracad abacadabrabracabracadabrabrabracad
- *  text:    abacadabrabracabracadabrabrabracad
- *  pattern:                        rabrabracad
- *
- *  % java BoyerMoore abacad abacadabrabracabracadabrabrabracad
- *  text:    abacadabrabracabracadabrabrabracad
- *  pattern: abacad
- *
- ***************************************************************/
+/*
+Compile:  javac BoyerMoore.java
+Execution:    java BoyerMoore pattern text
+*/
 
 public class BoyerMoore {
-    private final int R;     // the radix
-    private int[] right;     // the bad-character skip array
+    private final int R;
+    private int[] right;
+    private char[] pattern;
+    private String pat;
 
-    private char[] pattern;  // store the pattern as a character array
-    private String pat;      // or as a string
-
-    // pattern provided as a string
     public BoyerMoore(String pat) {
         this.R = 256;
         this.pat = pat;
 
-        // position of rightmost occurrence of c in the pattern
         right = new int[R];
         for (int c = 0; c < R; c++)
             right[c] = -1;
@@ -49,14 +20,12 @@ public class BoyerMoore {
             right[pat.charAt(j)] = j;
     }
 
-    // pattern provided as a character array
     public BoyerMoore(char[] pattern, int R) {
         this.R = R;
         this.pattern = new char[pattern.length];
         for (int j = 0; j < pattern.length; j++)
             this.pattern[j] = pattern[j];
 
-        // position of rightmost occurrence of c in the pattern
         right = new int[R];
         for (int c = 0; c < R; c++)
             right[c] = -1;
@@ -64,7 +33,6 @@ public class BoyerMoore {
             right[pattern[j]] = j;
     }
 
-    // return offset of first match; N if no match
     public int search(String txt) {
         int M = pat.length();
         int N = txt.length();
@@ -77,9 +45,9 @@ public class BoyerMoore {
                     break;
                 }
             }
-            if (skip == 0) return i;    // found
+            if (skip == 0) return i;
         }
-        return N;                       // not found
+        return N;
     }
 
 
